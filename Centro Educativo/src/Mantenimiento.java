@@ -2,6 +2,8 @@ package Mantenimiento;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -187,10 +189,52 @@ public class Mantenimiento extends javax.swing.JInternalFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+          //Codigo que permite borrar registros en la base de datos
+        try {
+            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/siu", "root", "");
+            PreparedStatement pst = cn.prepareStatement("delete from Alumnos where ID = ?");
+
+            pst.setString(1, buscar.getText().trim());
+            pst.executeUpdate();
+
+            nombrealumno.setText("");
+            direccionalumno.setText("");
+            emailalumno.setText("");
+            carnetalumno.setText("");
+            telefonoalumno.setText("");
+            statusalumno.setText("");
+
+            status.setText("Registro eliminado.");
+
+        } catch (Exception e) {
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+           //Codigo que permite consultar registros en la base de datos
+       try{
+            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/siu", "root", "");
+            PreparedStatement pst = cn.prepareStatement("select * from Alumnos where ID = ?");
+            pst.setString(1, buscar.getText().trim());
+
+            ResultSet rs = pst.executeQuery();
+
+            if(rs.next()){
+                nombrealumno.setText(rs.getString("NombreDelEmpleado"));
+                direccionalumno.setText(rs.getString("DireccionDelEmpleado"));
+                emailalumno.setText(rs.getString("Departamento"));
+                carnetalumno.setText(rs.getString("CodigoAsignado"));
+                telefonoalumno.setText(rs.getString("TelefonoDelEmpleado"));
+                statusalumno.setText(rs.getString("PuestoAsignado"));
+           
+            } else {
+                JOptionPane.showMessageDialog(null, "Empleado no registrado.");
+            }
+
+        }catch (Exception e){
+
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -229,7 +273,7 @@ public class Mantenimiento extends javax.swing.JInternalFrame {
        try {
             String ID = buscar.getText().trim();
 
-            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/covid", "root", "");
+            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/siu", "root", "");
             PreparedStatement pst = cn.prepareStatement("update Alumnos set NombreDelAlumno = ?, DireccionDelAlumno= ?, EmailDelAlumno = ?, CarnetDelAlumno = ?, TelefonoDelAlumno = ?, StatusDelAlumno = ?, Where ID= " + ID);
             pst.setString(1, nombrealumno.getText().trim());
             pst.setString(2, direccionalumno.getText().trim());

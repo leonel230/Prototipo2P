@@ -191,7 +191,7 @@ public class Mantenimiento extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
           //Codigo que permite borrar registros en la base de datos
         try {
-            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/siu", "root", "");
+            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/usi", "root", "");
             PreparedStatement pst = cn.prepareStatement("delete from Alumnos where ID = ?");
 
             pst.setString(1, buscar.getText().trim());
@@ -214,7 +214,7 @@ public class Mantenimiento extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
            //Codigo que permite consultar registros en la base de datos
        try{
-            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/siu", "root", "");
+            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/usi", "root", "");
             PreparedStatement pst = cn.prepareStatement("select * from Alumnos where ID = ?");
             pst.setString(1, buscar.getText().trim());
 
@@ -241,7 +241,7 @@ public class Mantenimiento extends javax.swing.JInternalFrame {
         // TODO add your handling code here: 
            //Codigo que permite insertar registros en al base de datos
         try{
-            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/siu", "root", "");
+            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/usi", "root", "");
             PreparedStatement pst = cn.prepareStatement("insert into Alumnos values(?,?,?,?,?,?,?)");
 
             pst.setString(1, "0");
@@ -273,7 +273,7 @@ public class Mantenimiento extends javax.swing.JInternalFrame {
        try {
             String ID = buscar.getText().trim();
 
-            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/siu", "root", "");
+            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/usi", "root", "");
             PreparedStatement pst = cn.prepareStatement("update Alumnos set NombreDelAlumno = ?, DireccionDelAlumno= ?, EmailDelAlumno = ?, CarnetDelAlumno = ?, TelefonoDelAlumno = ?, StatusDelAlumno = ?, Where ID= " + ID);
             pst.setString(1, nombrealumno.getText().trim());
             pst.setString(2, direccionalumno.getText().trim());
